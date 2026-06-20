@@ -1,0 +1,18 @@
+# Cache structures
+__pycache__/
+*.py[cod]
+.venv/
+.uv/
+.pytest_cache/
+node_modules/
+dist/
+.eslintcache
+
+# Local databases
+*.db
+local_mvp.db
+
+# IDE configuration rules exclusion
+.DS_Store
+*.log
+.env
