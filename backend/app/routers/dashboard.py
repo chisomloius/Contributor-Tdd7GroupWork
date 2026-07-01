@@ -8,16 +8,24 @@ from ..schemas import DashboardMetricsResponse
 
 router = APIRouter(prefix="/api/dashboard", tags=["dashboard"])
 
-
 @router.get("/metrics", response_model=DashboardMetricsResponse)
 async def dashboard_metrics(db: Session = Depends(get_db)) -> DashboardMetricsResponse:
     total = db.query(func.count(Generation.id)).scalar() or 0
-    dev_count = db.query(func.count(Generation.id)).filter(Generation.category == "api_endpoints").scalar() or 0
+    
+    # Calculate developer blueprint targets (all engineering-centric tiers)
+    dev_categories = [
+        "authentication", "database_layers", "api_endpoints", 
+        "containerization", "azure_infrastructure", "data_engineering"
+    ]
+    dev_count = db.query(func.count(Generation.id)).filter(
+        Generation.category.in_(dev_categories)
+    ).scalar() or 0
+    
     user_count = total - dev_count
-    categories = [row[0] for row in db.query(Generation.category).distinct().all()]
+    distinct_categories = [row[0] for row in db.query(Generation.category).distinct().all()]
 
     return DashboardMetricsResponse(
         total_generations=total,
         dev_vs_user_split={"dev_count": dev_count, "user_count": user_count},
-        unique_categories=categories,
+        unique_categories=distinct_categories,
     )

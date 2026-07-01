@@ -11,7 +11,10 @@ This document establishes the strict Definition of Done (DoD) checklist for the 
 
 ## ⚙️ Phase 2: Backend API Gateway Compliance (Hour 2)
 - [ ] Executing `uv run uvicorn` successfully boots the API framework on `http://localhost:8000`.
-- [ ] Navigating to `/docs` renders the FastAPI interactive Swagger UI with clear schemas for the `/api/docs/generate` endpoint.
+- [ ] Navigating to `/docs` renders the FastAPI interactive Swagger UI with clear schemas for the `/\
+
+ap
+i/docs/generate` endpoint.
 - [ ] Inbound JSON payloads lacking a `prompt` string throw an explicit `400 Bad Request` or `422 Unprocessable Entity` validation flag.
 - [ ] The database engine successfully creates the `documents` table inside `local_mvp.db` automatically upon server initialization.
 
