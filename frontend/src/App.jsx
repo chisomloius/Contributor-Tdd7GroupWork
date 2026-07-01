@@ -171,6 +171,25 @@ function App() {
     }
   }
 
+  async function copyToClipboard(message) {
+    const content = activeContent()
+    if (!content) return
+    try {
+      await navigator.clipboard.writeText(content)
+      setToast(message)
+    } catch {
+      setError("Clipboard access denied.")
+    }
+  }
+
+  // Add this missing link function to stop the rendering crash
+  function shareWhatsApp() {
+    const content = activeContent()
+    if (!content) return
+    const encodedText = encodeURIComponent(`${generatedDoc.title}\n\n${content}`)
+    window.open(`https://api.whatsapp.com/send?text=${encodedText}`, "_blank")
+  }
+
   async function handleGenerate() {
     setError("")
     if (prompt.trim().length < 5) return setError("Describe features with min 5 characters.")
@@ -383,7 +402,7 @@ function App() {
                 <p>Simultaneously engineer markdown specification frameworks and onboarding runbooks across 10 architectural categories.</p>
               </div>
               <button className="primary-button operational-jumbo-launcher" onClick={() => setCurrentView("generator")}>
-                ✨ Launch Document Workspace Compiler ➔
+                ✨ Launch Document Compiler ➔
               </button>
             </div>
 
