@@ -423,7 +423,7 @@ function App() {
                   <h3>Repository Query Registry</h3>
                   <p>Search, trace, and extract cached framework instances</p>
                 </div>
-                <input type="text" className="search-input-field" placeholder="🔍 Filter models by prompt keyword, tech spec, or classification tier..." value={searchQuery} onChange={handleSearchChange} />
+                <input type="text" className="search-input-field" placeholder="🔍 Filter models by keyword, spec, or classification" value={searchQuery} onChange={handleSearchChange} />
               </div>
 
               <div className="history-results-scrollable">
